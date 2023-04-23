@@ -117,3 +117,12 @@ form.signup, form.login {
   background: #fff;
   border-radius: 4px;
 }
+
+.link{
+  text-decoration: none;
+  color: black;
+}
+
+.link span{
+  color: #1aac83;
+}
