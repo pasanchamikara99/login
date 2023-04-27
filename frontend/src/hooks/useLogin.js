@@ -1,4 +1,5 @@
 import { useState } from "react";
+import {useNavigate} from 'react-router-dom'
 import { useAuthContext } from "./useAuthContext";
 
 
@@ -6,8 +7,7 @@ export const useLogin = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
   const { dispatch } = useAuthContext();
-
-  
+  const navigate = useNavigate();
 
   const login = async (email, password) => {
     setIsLoading(true);
@@ -35,11 +35,15 @@ export const useLogin = () => {
       dispatch({ type: "LOGIN", payload: json });
       setIsLoading(false);
 
-      
-      
+
+      console.log(json)
+      if(json.user.type == 'buyer'){
+        navigate('/test');
+      }
+  
     }
 
-    console.log(json);
+    //console.log(json.user);
   };
 
   return { login, isLoading, error };
