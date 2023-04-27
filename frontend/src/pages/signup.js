@@ -1,9 +1,7 @@
 import React from "react";
 import { useState } from "react";
-import {useSignup} from '../hooks/useSignup'
+import { useSignup } from "../hooks/useSignup";
 import { Link } from "react-router-dom";
-
-
 
 const signup = () => {
   const [firstname, setfName] = useState("");
@@ -12,13 +10,25 @@ const signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmpassword, setCpassword] = useState("");
-  const {signup,error,isLoading} = useSignup()
+  const { signup, error, isLoading } = useSignup();
+  const [type, setType] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await signup(firstname,lastname,mobilenumber,email,password,confirmpassword)
-    
+    await signup(
+      firstname,
+      lastname,
+      mobilenumber,
+      type,
+      email,
+      password,
+      confirmpassword
+    );
+  };
+
+  const handleDropdown = (event) => {
+    setType(event.target.value);
   };
 
   return (
@@ -39,7 +49,7 @@ const signup = () => {
         onChange={(e) => setlName(e.target.value)}
         value={lastname}
       />
-       <label htmlFor="">Mobile Number</label>
+      <label htmlFor="">Mobile Number</label>
       <input
         type="text"
         name=""
@@ -53,6 +63,17 @@ const signup = () => {
         onChange={(e) => setEmail(e.target.value)}
         value={email}
       />
+      <label htmlFor="">Select Type </label>
+      <select
+        value={type}
+        onChange={handleDropdown}
+        style={{ width: "100%", padding: "5px", borderRadius: "5px" ,marginBottom:"5px"}}
+      >
+        <option value="">Select and option</option>
+        <option value="seller">Seller</option>
+        <option value="buyer">Buyer</option>
+      </select>
+
       <label htmlFor="">Password</label>
       <input
         type="password"
@@ -68,15 +89,16 @@ const signup = () => {
         value={confirmpassword}
       />
 
-      <button disabled = {isLoading}>Sign Up</button>
+      <button disabled={isLoading}>Sign Up</button>
 
       <br></br>
       <br></br>
-      
-      <div>  
-            <Link className="link" to="/">Already Registred ?  <span>Login</span></Link>
+
+      <div>
+        <Link className="link" to="/">
+          Already Registred ? <span>Login</span>
+        </Link>
       </div>
-     
     </form>
   );
 };
